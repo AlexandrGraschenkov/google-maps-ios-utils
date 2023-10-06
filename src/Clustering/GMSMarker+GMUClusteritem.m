@@ -7,7 +7,17 @@
 //
 
 #import "GMSMarker+GMUClusteritem.h"
+#import <objc/runtime.h>
+
+static char const *const kPopularity = "popularity";
 
 @implementation GMSMarker (GMSMarker_GMUClusteritem)
+- (void)setPopularity:(NSInteger)popularity
+{
+    objc_setAssociatedObject(self, &kPopularity, [[NSNumber alloc] initWithInteger:popularity], OBJC_ASSOCIATION_RETAIN);
+}
 
+- (NSInteger)popularity {
+    return [(NSNumber *)objc_getAssociatedObject(self, &kPopularity) integerValue];
+}
 @end

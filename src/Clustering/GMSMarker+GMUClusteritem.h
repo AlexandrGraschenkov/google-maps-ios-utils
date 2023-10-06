@@ -11,5 +11,5 @@
 #import "GMUClusterItem.h"
 
 @interface GMSMarker (GMSMarker_GMUClusteritem) <GMUClusterItem>
-
+@property(nonatomic, assign) NSInteger popularity;
 @end

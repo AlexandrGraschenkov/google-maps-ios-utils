@@ -62,6 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+typedef enum : NSUInteger {
+    ClusterModeNormal,
+    ClusterModeKeepOnlyPopular,
+    ClusterModeClusterPopular,
+} ClusterMode;
 /**
  * Default cluster renderer which shows clusters as markers with specialized icons.
  * There is logic to decide whether to expand a cluster or not depending on the number of
@@ -105,6 +110,7 @@ NS_ASSUME_NONNULL_BEGIN
  * Defaults to YES.
  */
 @property(nonatomic) BOOL animatesClusters;
+@property(nonatomic) ClusterMode clusterMode;
 
 /**
  * Determines the minimum number of cluster items inside a cluster.
