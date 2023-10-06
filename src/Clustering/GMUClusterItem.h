@@ -30,4 +30,6 @@
 
 @property(nonatomic, copy, nullable) NSString* snippet;
 
+@property(nonatomic, assign) NSInteger popularity;
+
 @end
