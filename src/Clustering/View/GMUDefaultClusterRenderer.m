@@ -104,6 +104,9 @@ static const double kGMUAnimationDuration = 0.5;  // seconds.
     _mutableMarkers = [[NSMutableArray<GMSMarker *> alloc] init];
     [self addOrUpdateClusters:clusters animated:NO];
   }
+  if ([self.delegate respondsToSelector:@selector(renderer:didRenderMarkers:)]) {
+    [self.delegate renderer:self didRenderMarkers:[self markers]];
+  }
 }
 
 - (void)renderAnimatedClusters:(NSArray<id<GMUCluster>> *)clusters {
