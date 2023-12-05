@@ -61,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)renderer:(id<GMUClusterRenderer>)renderer didRenderMarker:(GMSMarker *)marker;
 
 
-- (void)renderer:(id<GMUClusterRenderer>)renderer didRenderMarkers:(NSArray<GMSMarker *>)markers;
+- (void)renderer:(id<GMUClusterRenderer>)renderer didRenderMarkers:(NSArray<GMSMarker *> *)markers;
 
 @end
 
