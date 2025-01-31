@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 static char const *const kPopularity = "popularity";
+static char const *const kDisplayMode = "display_mode";
 
 @implementation GMSMarker (GMSMarker_GMUClusteritem)
 - (void)setPopularity:(NSInteger)popularity
@@ -19,5 +20,14 @@ static char const *const kPopularity = "popularity";
 
 - (NSInteger)popularity {
     return [(NSNumber *)objc_getAssociatedObject(self, &kPopularity) integerValue];
+}
+
+- (void)setDisplayMode:(NSInteger)displayMode
+{
+    objc_setAssociatedObject(self, &kDisplayMode, [[NSNumber alloc] initWithInteger:displayMode], OBJC_ASSOCIATION_RETAIN);
+}
+
+- (NSInteger)displayMode {
+    return [(NSNumber *)objc_getAssociatedObject(self, &kDisplayMode) integerValue];
 }
 @end

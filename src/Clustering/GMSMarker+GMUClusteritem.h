@@ -12,4 +12,5 @@
 
 @interface GMSMarker (GMSMarker_GMUClusteritem) <GMUClusterItem>
 @property(nonatomic, assign) NSInteger popularity;
+@property(nonatomic, assign) NSInteger displayMode;
 @end

@@ -32,4 +32,6 @@
 
 @property(nonatomic, assign) NSInteger popularity;
 
+@property(nonatomic, assign, readwrite) NSInteger displayMode;
+
 @end

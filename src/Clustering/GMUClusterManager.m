@@ -253,9 +253,10 @@ static const double kGMUClusterWaitIntervalSeconds = 0.2;
                         change:(NSDictionary<NSString *, id> *)change
                        context:(void *)context {
   GMSCameraPosition *camera = _mapView.camera;
-  NSUInteger previousIntegralZoom = (NSUInteger)floorf(_previousCamera.zoom + 0.5f);
-  NSUInteger currentIntegralZoom = (NSUInteger)floorf(camera.zoom + 0.5f);
-  if (previousIntegralZoom != currentIntegralZoom) {
+  double dBearing = _previousCamera.bearing - camera.bearing;
+  BOOL bearingChanged = dBearing > 3 && dBearing < 357;
+  BOOL zoomChanged = fabsf(_previousCamera.zoom - camera.zoom) > 0.2;
+  if (zoomChanged || bearingChanged) {
     [self requestCluster];
   } else {
     [_renderer update];
@@ -263,23 +264,8 @@ static const double kGMUClusterWaitIntervalSeconds = 0.2;
 }
 
 - (void)requestCluster {
-  __weak GMUClusterManager *weakSelf = self;
-  ++_clusterRequestCount;
-  NSUInteger requestNumber = _clusterRequestCount;
-  dispatch_after(
-      dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kGMUClusterWaitIntervalSeconds * NSEC_PER_SEC)),
-      dispatch_get_main_queue(), ^{
-        GMUClusterManager *strongSelf = weakSelf;
-        if (strongSelf == nil) {
-          return;
-        }
-
-        // Ignore if there are newer requests.
-        if (requestNumber != strongSelf->_clusterRequestCount) {
-          return;
-        }
-        [strongSelf cluster];
-      });
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(cluster) object:nil];
+    [self performSelector:@selector(cluster) withObject:nil afterDelay:0.3];
 }
 
 @end
